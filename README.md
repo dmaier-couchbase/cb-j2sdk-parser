@@ -3,8 +3,17 @@ A bunch of simple parsers for the Couchbase 2.x client SDK log files
 
 ## Latency timings
 
-Logging is configured in a way that an entry has the following format.
+The Couchbase Java SDK allows you fetch some client side latency timings by using the CouchbaseEnvrionment, e.g.:
 
+```
+CouchbaseEnvironment env = DefaultCouchbaseEnvironment
+    .builder()
+    .networkLatencyMetricsCollectorConfig(DefaultLatencyMetricsCollectorConfig.create(10, TimeUnit.MINUTES))
+    .build();
+```
+
+
+The logging (e.g. Log4j) needs to be configured in a way that an entry has the following format:
 
 * Time stamp YYYY-MM-DD hh:mm:ss.uuu
 * Thread-id
@@ -44,34 +53,4 @@ can be used in order to convert the entries into a CSV format which can then be 
 2016-04-18 21:48:57.342;/172.28.8.3:11210;InsertRequest;perc_50.0;136;perc_90.0;171;perc_95.0;192;perc_99.0;716;perc_99.9;158334;min;89;max;278921;count;7284;
 2016-04-18 21:48:57.342;/172.28.8.3:11210;UpsertRequest;perc_50.0;5079;perc_90.0;6848;perc_95.0;7110;perc_99.0;7569;perc_99.9;12451;min;557;max;12451;count;341;
 2016-04-18 21:48:57.342;/172.28.8.3:11210;GetBucketConfigRequest;perc_50.0;236;perc_90.0;362;perc_95.0;374;perc_99.0;2031;perc_99.9;2031;min;110;max;2031;count;45;
-2016-04-18 21:58:57.317;/172.28.6.3:11210;ReplaceRequest;perc_50.0;137;perc_90.0;172;perc_95.0;222;perc_99.0;26083;perc_99.9;170917;min;84;max;245366;count;28155;
-2016-04-18 21:58:57.317;/172.28.6.3:11210;CounterRequest;perc_50.0;110;perc_90.0;181;perc_95.0;4112;perc_99.0;37748;perc_99.9;187695;min;55;max;6073352;count;2669114;
-2016-04-18 21:58:57.317;/172.28.6.3:11210;GetRequest;perc_50.0;97;perc_90.0;163;perc_95.0;3424;perc_99.0;37486;perc_99.9;195035;min;51;max;6073352;count;6597206;
-2016-04-18 21:58:57.317;/172.28.6.3:11210;InsertRequest;perc_50.0;151;perc_90.0;183;perc_95.0;204;perc_99.0;573;perc_99.9;4915;min;110;max;5505;count;789;
-2016-04-18 21:58:57.317;/172.28.6.3:11210;GetBucketConfigRequest;perc_50.0;239;perc_90.0;491;perc_95.0;573;perc_99.0;835;perc_99.9;835;min;103;max;835;count;36;
-2016-04-18 21:58:57.317;/172.28.3.3:11210;ReplaceRequest;perc_50.0;138;perc_90.0;178;perc_95.0;222;perc_99.0;26476;perc_99.9;176160;min;93;max;243269;count;28420;
-2016-04-18 21:58:57.317;/172.28.3.3:11210;CounterRequest;perc_50.0;112;perc_90.0;195;perc_95.0;3997;perc_99.0;37486;perc_99.9;187695;min;59;max;6174015;count;2684348;
-2016-04-18 21:58:57.317;/172.28.3.3:11210;GetRequest;perc_50.0;98;perc_90.0;171;perc_95.0;3244;perc_99.0;37486;perc_99.9;195035;min;48;max;6174015;count;6625509;
-2016-04-18 21:58:57.317;/172.28.3.3:11210;InsertRequest;perc_50.0;150;perc_90.0;184;perc_95.0;208;perc_99.0;528;perc_99.9;1679;min;106;max;7340;count;855;
-2016-04-18 21:58:57.317;/172.28.3.3:11210;GetBucketConfigRequest;perc_50.0;195;perc_90.0;413;perc_95.0;487;perc_99.0;815;perc_99.9;815;min;102;max;815;count;44;
-2016-04-18 21:58:57.317;/172.28.8.3:11210;ReplaceRequest;perc_50.0;139;perc_90.0;174;perc_95.0;226;perc_99.0;26738;perc_99.9;171966;min;91;max;245366;count;28827;
-2016-04-18 21:58:57.317;/172.28.8.3:11210;CounterRequest;perc_50.0;113;perc_90.0;187;perc_95.0;4046;perc_99.0;37748;perc_99.9;189792;min;62;max;274726;count;2669740;
-2016-04-18 21:58:57.317;/172.28.8.3:11210;GetRequest;perc_50.0;99;perc_90.0;168;perc_95.0;3358;perc_99.0;37486;perc_99.9;185597;min;52;max;283115;count;6594155;
-2016-04-18 21:58:57.317;/172.28.8.3:11210;InsertRequest;perc_50.0;144;perc_90.0;177;perc_95.0;196;perc_99.0;577;perc_99.9;2539;min;102;max;10878;count;1968;
-2016-04-18 21:58:57.317;/172.28.8.3:11210;GetBucketConfigRequest;perc_50.0;262;perc_90.0;454;perc_95.0;518;perc_99.0;606;perc_99.9;618;min;109;max;618;count;52;
-2016-04-18 22:08:57.306;/172.28.6.3:11210;ReplaceRequest;perc_50.0;142;perc_90.0;176;perc_95.0;209;perc_99.0;843;perc_99.9;182452;min;97;max;278921;count;14861;
-2016-04-18 22:08:57.306;/172.28.6.3:11210;CounterRequest;perc_50.0;110;perc_90.0;183;perc_95.0;5537;perc_99.0;39059;perc_99.9;202375;min;60;max;5570035;count;2642959;
-2016-04-18 22:08:57.306;/172.28.6.3:11210;GetRequest;perc_50.0;97;perc_90.0;164;perc_95.0;4685;perc_99.0;39059;perc_99.9;205520;min;52;max;5570035;count;6547619;
-2016-04-18 22:08:57.306;/172.28.6.3:11210;InsertRequest;perc_50.0;152;perc_90.0;194;perc_95.0;261;perc_99.0;1138;perc_99.9;7995;min;112;max;9109;count;504;
-2016-04-18 22:08:57.306;/172.28.6.3:11210;GetBucketConfigRequest;perc_50.0;284;perc_90.0;436;perc_95.0;4816;perc_99.0;3808428;perc_99.9;3808428;min;102;max;3808428;count;43;
-2016-04-18 22:08:57.306;/172.28.3.3:11210;ReplaceRequest;perc_50.0;141;perc_90.0;177;perc_95.0;204;perc_99.0;671;perc_99.9;189792;min;93;max;411041;count;14635;
-2016-04-18 22:08:57.306;/172.28.3.3:11210;CounterRequest;perc_50.0;111;perc_90.0;190;perc_95.0;5341;perc_99.0;39059;perc_99.9;200278;min;56;max;6274678;count;2662981;
-2016-04-18 22:08:57.306;/172.28.3.3:11210;GetRequest;perc_50.0;97;perc_90.0;166;perc_95.0;4685;perc_99.0;39321;perc_99.9;214958;min;46;max;6274678;count;6584740;
-2016-04-18 22:08:57.306;/172.28.3.3:11210;InsertRequest;perc_50.0;152;perc_90.0;194;perc_95.0;220;perc_99.0;495;perc_99.9;8454;min;108;max;1035993;count;605;
-2016-04-18 22:08:57.306;/172.28.3.3:11210;GetBucketConfigRequest;perc_50.0;195;perc_90.0;389;perc_95.0;671;perc_99.0;806;perc_99.9;806;min;95;max;806;count;40;
-2016-04-18 22:08:57.306;/172.28.8.3:11210;ReplaceRequest;perc_50.0;144;perc_90.0;177;perc_95.0;206;perc_99.0;684;perc_99.9;189792;min;97;max;283115;count;15282;
-2016-04-18 22:08:57.306;/172.28.8.3:11210;CounterRequest;perc_50.0;112;perc_90.0;188;perc_95.0;5406;perc_99.0;39059;perc_99.9;202375;min;59;max;325058;count;2645575;
-2016-04-18 22:08:57.306;/172.28.8.3:11210;GetRequest;perc_50.0;99;perc_90.0;167;perc_95.0;4489;perc_99.0;38797;perc_99.9;199229;min;51;max;316669;count;6551585;
-2016-04-18 22:08:57.306;/172.28.8.3:11210;InsertRequest;perc_50.0;148;perc_90.0;177;perc_95.0;197;perc_99.0;430;perc_99.9;9961;min;106;max;62128;count;1273;
-2016-04-18 22:08:57.306;/172.28.8.3:11210;GetBucketConfigRequest;perc_50.0;234;perc_90.0;389;perc_95.0;614;perc_99.0;1146;perc_99.9;1146;min;105;max;1146;count;49;
 ```
