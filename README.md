@@ -32,7 +32,7 @@ The the script
 node latency_timings.js some.log > latency_timings.csv
 ```
 
-can be used in order to convert the entries into a CSV format which can then be imported to e.g. Excel. The output might look similar to the following one:
+can be used in order to convert the entries into a CSV format which can then be imported to e.g. Excel. The output then looks similar to the following one:
 
 ```
 2016-04-18 21:48:57.342;/172.28.6.3:11210;ReplaceRequest;perc_50.0;130;perc_90.0;186;perc_95.0;1777;perc_99.0;35127;perc_99.9;205520;min;82;max;3170893;count;122600;
